@@ -1,0 +1,106 @@
+#main,
+#main > .container {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  *zoom: 1;
+  min-width: 1024px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container .content-area-wrap {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.LeftNav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100%;
+  color: #fff;
+  min-width: 198px;
+  width: 17.5vw;
+  max-width: 256px;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  background-color: #384657;
+  z-index: 101;
+}
+
+.corner-branding {
+  display: flex;
+  margin: 0;
+  padding: 18px calc(9.375% - 8px) 18px 9.375%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: currentColor;
+  background-color: #28323e;
+  border-bottom: 1px solid #28323e;
+}
+
+.brand {
+  width: 100%;
+  text-align: center;
+  font-size: 14pt;
+}
+
+.container .content-area-wrap .content-area {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: rgba(0, 0, 0, 0.1);
+  min-width: 0;
+  position: relative;
+}
+
+.nav-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0;
+}  
+
+.TitleBar {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  height: 56px;
+  margin: 0;
+  position: relative;
+  z-index: 4; 
+  background-color: #fff;
+  color: #6b6e77;
+}
+
+.activity-side {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 15pt;
+  margin-top: 16px;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  width: 30%;
+  min-width: 300px;
+  max-width: 380px;
+  box-sizing: border-box;
+}
