@@ -1,0 +1,106 @@
+body {
+  height: 100%;
+  display: block;
+  margin: 0;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  color: #262e39;
+  background-color: #fafafa;
+  overflow: hidden;
+}
+
+.login-container {
+  display: flex;  
+  flex-flow: row wrap;
+  font-weight: bold;
+  text-align: center;
+  height: 100%;
+}
+
+.login-container > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.login-header {
+  height: 20vh;
+}
+
+.login-footer {
+  order: 4;
+}
+
+.login-main {
+  text-align: left;
+  flex: 3 0px;
+  order: 2;
+}
+
+.aside { flex: 1 0 0; }
+
+.aside-1 {
+  order: 1;
+}
+
+.aside-2 {
+  order: 3;
+}
+
+.login-form-wrapper {
+  display: flex;
+}
+
+.login-form-logo {
+  text-align: center;
+  width: 50%;
+}
+
+.login-form {
+  text-align: left;
+  margin: 5em 3em;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+  width: 100%;
+  display: block;
+}
+
+.form-control label {
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+}
+
+.form-actions button,
+.btn {
+  background: #5101d1;
+  font: inherit;
+  border: 1px solid #5101d1;
+  border-radius: 3px;
+  padding: 0.25rem 1rem;
+  margin-right: 1rem;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+  color: white;
+  cursor: pointer;
+}
+
+.form-actions button:hover,
+.form-actions button:active,
+.btn:hover,
+.btn:active {
+  background: #6219d6;
+  border-color: #6219d6;
+}
+
+.tag {
+  background: gray;
+  padding: 1px 4px;
+  margin: 1px 2px;
+  color: white;
+  border-radius: 4px;
+}

@@ -1,0 +1,11 @@
+{
+  "Opportunity": {
+    "createdDate": "date",
+    "tags": ['string'],
+    "hiringOrg": "string",
+    "source": "org",
+    "firstContactDate": 'date',
+    "jobTitle": 'string',
+    
+  }
+}
