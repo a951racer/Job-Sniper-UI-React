@@ -1,7 +1,9 @@
 import axios from 'axios'
+import runtimeEnv from '@mars/heroku-js-runtime-env'
 
-const apiRoot = 'http://localhost:5003/graphql'
-
+const env = runtimeEnv()
+//const apiRoot = 'http://localhost:5003/graphql'
+const apiRoot = env.REACT_APP_API
 
 export default class ProfileAPI {
 
