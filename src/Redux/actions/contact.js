@@ -67,7 +67,7 @@ export const contactDeleted = (deletedContact) => {
 
 export const fetchContacts = () => async (dispatch, getState) => {
   const state = getState()
-  if (state.contacts.contacts && state.contacts.contacts.length > 0) return
+  //if (state.contacts.contacts && state.contacts.contacts.length > 0) return
   dispatch(requestContacts())
   const contacts = await api.getContacts(state.auth.token)
   dispatch(contactsReceived(contacts))

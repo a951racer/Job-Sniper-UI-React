@@ -67,7 +67,7 @@ export const profileDeleted = (deletedProfile) => {
 
 export const fetchProfile = () => async (dispatch, getState) => {
   const state = getState()
-  if (state.profile.profile && state.profile.profile.length > 0) return
+  //if (state.profile.profile && state.profile.profile.length > 0) return
   dispatch(requestProfile())
   const profile = await api.getProfile(state.auth.token)
   dispatch(profileReceived(profile))

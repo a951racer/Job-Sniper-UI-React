@@ -67,7 +67,7 @@ export const activityDeleted = (deletedActivity) => {
 
 export const fetchActivities = () => async (dispatch, getState) => {
   const state = getState()
-  if (state.activities.activities && state.activities.activities.length > 0) return
+  //if (state.activities.activities && state.activities.activities.length > 0) return
   dispatch(requestActivities())
   const activities = await api.getActivities(state.auth.token)
   dispatch(activitiesReceived(activities))

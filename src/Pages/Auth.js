@@ -56,7 +56,7 @@ class AuthPage extends Component {
                     </div>
                     <div style={{marginBottom: '1em'}}>
                     <div style={{fontSize: '1.5em'}}>Password:</div>
-                      <Password value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} />
+                      <Password value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} feedback={false} />
                     </div>
                     <div>
                       <Button label="Login" icon="pi pi-sign-in" iconPos="right" onClick={this.submitHandler}/>

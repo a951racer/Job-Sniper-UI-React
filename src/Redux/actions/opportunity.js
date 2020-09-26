@@ -67,7 +67,7 @@ export const opportunityDeleted = (deletedOpportunity) => {
 
 export const fetchOpportunities = () => async (dispatch, getState) => {
   const state = getState()
-  if (state.opportunities.opportunities && state.opportunities.opportunities.length > 0) return
+  //if (state.opportunities.opportunities && state.opportunities.opportunities.length > 0) return
   dispatch(requestOpportunities())
   const opportunities = await api.getOpportunities(state.auth.token)
   dispatch(opportunitiesReceived(opportunities))

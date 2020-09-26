@@ -67,7 +67,7 @@ export const noteDeleted = (deletedNote) => {
 
 export const fetchNotes = () => async (dispatch, getState) => {
   const state = getState()
-  if (state.notes.notes && state.notes.notes.length > 0) return
+  //if (state.notes.notes && state.notes.notes.length > 0) return
   dispatch(requestNotes())
   const notes = await api.getNotes(state.auth.token)
   dispatch(notesReceived(notes))
