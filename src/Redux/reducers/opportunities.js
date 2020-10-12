@@ -1,6 +1,8 @@
 import { REQUEST_OPPORTUNITIES,
+  REQUEST_OPPORTUNITY,
   UPDATE_OPPORTUNITY,
   OPPORTUNITIES_RECEIVED,
+  OPPORTUNITY_RECEIVED,
   OPPORTUNITY_UPDATED,
   CREATE_OPPORTUNITY,
   OPPORTUNITY_CREATED,
@@ -10,6 +12,7 @@ import { REQUEST_OPPORTUNITIES,
 
 const initialState = {
   opportunities: [],
+  currentOpportunity: {},
   isLoading: false,
   isUpdating: false,
   isCreating: false,
@@ -29,6 +32,20 @@ const opportunities = (state = initialState, action) => {
         ...state,
         isLoading: false,
         opportunities: action.opportunities
+      }
+    }
+
+    case REQUEST_OPPORTUNITY: {
+      return {
+        ...state,
+        isLoading: true }
+    }
+
+    case OPPORTUNITY_RECEIVED: {
+      return {
+        ...state,
+        isLoading: false,
+        currentOpportunity: action.opportunity
       }
     }
 

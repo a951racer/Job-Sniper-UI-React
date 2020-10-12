@@ -16,6 +16,11 @@ export default class OpportunityAPI {
     return res.data
   }
 
+  async getOpportunityById(opportunity) {
+    const res = await axios.opportunityById(apiRoot + `/${opportunity._id}`, opportunity)
+    return res.data.data.opportunity
+  }
+
   async saveOpportunity(opportunity, token) {
     const options = {
       headers: {

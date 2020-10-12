@@ -1,4 +1,5 @@
 import { REQUEST_OPPORTUNITIES,
+  REQUEST_OPPORTUNITY,
   UPDATE_OPPORTUNITY,
   OPPORTUNITIES_RECEIVED,
   OPPORTUNITY_UPDATED,
@@ -15,6 +16,12 @@ const api = new OpportunityAPI();
 export const requestOpportunities = () => {
   return {
     type: REQUEST_OPPORTUNITIES
+  }
+}
+
+export const requestOpportunity = () => {
+  return {
+    type: REQUEST_OPPORTUNITY
   }
 }
 
@@ -71,6 +78,13 @@ export const fetchOpportunities = () => async (dispatch, getState) => {
   dispatch(requestOpportunities())
   const opportunities = await api.getOpportunities(state.auth.token)
   dispatch(opportunitiesReceived(opportunities))
+}
+
+export const fetchOpportunityById = () => async (dispatch, getState) => {
+  const state = getState()
+  dispatch(requestOpportunity())
+  const opportunity = await api.getOpportunityById(state.auth.token)
+  dispatch(opportunitiesReceived(opportunity))
 }
 
 export const saveOpportunity = opportunity => async (dispatch, getState) => {

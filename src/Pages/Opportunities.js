@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { Chips } from 'primereact/chips'
 import { Calendar } from 'primereact/calendar'
+import { Button } from 'primereact/button'
 import { Growl } from 'primereact/growl'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
@@ -24,7 +26,9 @@ class OpportunitiesPage extends Component {
     this.state = {
       editingOpportunity: null,
       contacts: [],
-      deleteOpportunityDialog: false
+      deleteOpportunityDialog: false,
+      redirect: false,
+      redirectTo:'',
     }
   }
 
@@ -67,6 +71,10 @@ class OpportunitiesPage extends Component {
 
   showDetails = () => {
     //navigate
+  }
+
+  handleDetailClick = (id) => {
+    this.setState({redirect: true, redirectTo: `/opportunityDetail/${id}`})
   }
 
   // Row Edit Functions
@@ -128,6 +136,60 @@ class OpportunitiesPage extends Component {
     return rowData.tags.map(tag => <span className="tag" key="tag">{tag}</span>)
   }
 
+
+  onRowEditSave = async (event) => {
+    await this.props.saveOpportunity(this.state.editingOpportunity)
+    this.setState({editingOpportunity: null})
+    this.growl.show({severity: 'success', summary: 'Saved', detail: 'Opportunity has been updated'})
+  }
+
+  onRowEditCancel = (event) => {
+    this.setState({
+        editingOpportunity: null
+    })
+  }
+
+// Editor control functions
+  updateProperty = (property, value) => {
+    const opportunity = {...this.state.editingOpportunity, [property]: value}
+    this.setState({
+      editingOpportunity: opportunity
+    })
+  }
+
+  updateSourceContact = value => {
+    let opportunity = {...this.state.editingOpportunity}
+    if (!opportunity.sourceContact) opportunity.sourceContact = {}
+    opportunity.sourceContact.id = value
+    if (value === '000') opportunity.sourceContact = null
+    this.setState({
+      editingOpportunity: opportunity
+    })
+  }
+
+// Editors
+  textEditor = (props) => {
+    return <InputText type="text" value={this.state.editingOpportunity[props.field]} onChange={(e) => this.updateProperty(props.field, e.target.value)} />
+  }
+
+  tagsEditor = (props) => {
+    return <Chips value={this.state.editingOpportunity.tags} onChange={(e) => this.updateProperty(props.field, e.target.value)} ></Chips>
+  }
+
+  sourceContactEditor = (props) => {
+    return <Dropdown id="sourceContact"  value={this.state.editingOpportunity.sourceContact ? this.state.editingOpportunity.sourceContact.id : null} options={this.state.contacts} optionLabel="label" optionValue="id" style={{width: '15em'}} scrollHeight='200px' onChange={(e) => {this.updateSourceContact(e.target.value)}} />
+  }
+
+  dateEditor = (props) => {
+    return <Calendar id="initialContactDate" dateFormat="dd/mm/yy" onChange={(e) => {this.updateProperty(props.field, e.target.value)}} value={this.state.editingOpportunity.initialContactDate}/>
+  }
+
+// Templates
+  tagsTemplate = (rowData) => {
+    if (!rowData.tags || rowData.tags === "" || rowData.tags === []) return
+    return rowData.tags.map(tag => <span className="tag">{tag}</span>)
+  }
+
   sourceContactTemplate = (rowData) => {
     if (rowData.sourceContact)
       return <span>{rowData.sourceContact.firstName} {rowData.sourceContact.lastName} - {rowData.sourceContact.organization}</span>
@@ -155,6 +217,17 @@ class OpportunitiesPage extends Component {
       </React.Fragment>
     )
 
+  
+  detailBodyTemplate = (rowData) => {
+    return (
+        <Button type="button" icon="pi pi-search" className="p-button-secondary" onClick={() => this.handleDetailClick(rowData._id)}></Button>
+    )
+  }
+
+  render() {
+    if (this.state.redirect) {
+      return <Redirect push to={this.state.redirectTo} />;
+    }
     return (
       <PageLayout title="Opportunities">
         <NewOpportunityDialog />
@@ -171,6 +244,7 @@ class OpportunitiesPage extends Component {
           onRowEditCancel={this.onRowEditCancel}
         >
           <Column body={this.detailsTemplate}></Column>
+          <Column body={this.detailBodyTemplate} headerStyle={{width: '4em', textAlign: 'center'}} bodyStyle={{textAlign: 'center', overflow: 'visible'}} />
           <Column field="initialContactDate" header="Initial Contact" sortable={true} filter={true} filterMatchMode="contains" body={this.dateTemplate} editor={this.dateEditor} />
           <Column field="employerName" header="Employer" sortable={true} filter={true} filterMatchMode="contains" editor={this.textEditor} />
           <Column field="jobTitle" header="Job Title" sortable={true} filter={true} filterMatchMode="contains" editor={this.textEditor} />

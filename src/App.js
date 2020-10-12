@@ -13,6 +13,7 @@ import NotesPage from './Pages/Notes'
 import ProfilePage from './Pages/Profile'
 import LogoutPage from './Pages/Logout'
 import './App.css'
+import OpportunityDetail from './Pages/OpportunityDetail';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
               {!this.props.token && <Route path="/auth" component={AuthPage} />}
               {!this.props.token && <Redirect to="/auth" exact />}
               {<Route path="/opportunities" component={OpportunitiesPage} />}
+              {<Route path="/opportunityDetail/:opportunityId" component={OpportunityDetail} />}
               {<Route path="/contacts" component={ContactsPage} />}
               {<Route path="/activities" component={ActivitiesPage} />}
               {<Route path="/notes" component={NotesPage} />}
