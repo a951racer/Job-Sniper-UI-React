@@ -2,56 +2,48 @@ import axios from 'axios'
 import runtimeEnv from '@mars/heroku-js-runtime-env'
 
 const env = runtimeEnv()
-//const apiRoot = 'http://localhost:5003/graphql'
-const apiRoot = env.REACT_APP_API
+const apiRoot = env.REACT_APP_API + '/activity'
 
 
 export default class ActivityAPI {
 
   async getActivities(token) {
-    const query = {
-      query: `
-        query {
-          activities {
-            id
-            activityType {
-              activityType
-            }
-            activityDate
-            contacts: {
-              lastName
-              firstName
-            }
-            opportunity {
-              employerName
-              jobTitle
-            }
-          }
-        }
-      `
-    }
-
     const options = {
       headers: {
         'Authorization': 'Bearer ' + token
       }
     }
-    const res = await axios.post(apiRoot, query, options)
-    return res.data.data.activities
-  }
-
-  async saveActivity(activity) {
-    const res = await axios.put(apiRoot + `/${activity._id}`, activity)
+    const res = await axios.get(apiRoot, options)
     return res.data
   }
 
-  async createActivity(activity) {
-    const res = await axios.post(apiRoot, activity)
+  async saveActivity(activity, token) {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    const res = await axios.put(apiRoot + `/${activity._id}`, activity, options)
     return res.data
   }
 
-  async deleteActivity(activity) {
-    const res = await axios.delete(apiRoot + `/${activity._id}`, activity)
+  async createActivity(activity, token) {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    const res = await axios.post(apiRoot, activity, options)
+    return res.data
+  }
+
+  async deleteActivity(activity, token) {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    const res = await axios.delete(apiRoot + `/${activity._id}`, activity, options)
     return res.data
   }
 }

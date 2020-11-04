@@ -73,20 +73,23 @@ export const fetchProfile = () => async (dispatch, getState) => {
   dispatch(profileReceived(profile))
 }
 
-export const saveProfile = profile => async dispatch => {
+export const saveProfile = profile => async (dispatch, getState) => {
+  const state = getState()
   dispatch(updateProfile())
-  const updatedProfile = await api.saveProfile(profile)
+  const updatedProfile = await api.saveProfile(profile, state.auth.token)
   dispatch(profileUpdated(updatedProfile))
 }
 
-export const createProfile = profile => async dispatch => {
+export const createProfile = profile => async (dispatch, getState) => {
+  const state = getState()
   dispatch(creatingProfile())
-  const newProfile = await api.createProfile(profile)
+  const newProfile = await api.createProfile(profile, state.auth.token)
   dispatch(profileCreated(newProfile))
 }
 
-export const deleteProfile = profile => async dispatch => {
+export const deleteProfile = profile => async (dispatch, getState) => {
+  const state = getState()
   dispatch(deletingProfile())
-  const deletedProfile = await api.deleteProfile(profile)
+  const deletedProfile = await api.deleteProfile(profile, state.auth.token)
   dispatch(profileDeleted(deletedProfile))
 }

@@ -73,20 +73,23 @@ export const fetchNotes = () => async (dispatch, getState) => {
   dispatch(notesReceived(notes))
 }
 
-export const saveNote = note => async dispatch => {
+export const saveNote = note => async (dispatch, getState) => {
+  const state = getState()
   dispatch(updateNote())
-  const updatedNote = await api.saveNote(note)
+  const updatedNote = await api.saveNote(note, state.auth.token)
   dispatch(noteUpdated(updatedNote))
 }
 
-export const createNote = note => async dispatch => {
+export const createNote = note => async (dispatch, getState) => {
+  const state = getState()
   dispatch(creatingNote())
-  const newNote = await api.createNote(note)
+  const newNote = await api.createNote(note, state.auth.token)
   dispatch(noteCreated(newNote))
 }
 
-export const deleteNote = note => async dispatch => {
+export const deleteNote = note => async (dispatch, getState) => {
+  const state = getState()
   dispatch(deletingNote())
-  const deletedNote = await api.deleteNote(note)
+  const deletedNote = await api.deleteNote(note, state.auth.token)
   dispatch(noteDeleted(deletedNote))
 }

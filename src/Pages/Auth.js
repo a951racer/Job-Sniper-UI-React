@@ -31,7 +31,7 @@ class AuthPage extends Component {
   }
 
   render() {
-    const footer = <span style={{textAlign: 'center'}}><h4><i>The Job Sniper</i></h4></span>
+    const footer = <span style={{textAlign: 'center'}}><h1>The Job Sniper</h1></span>
 
     return (
       <>
@@ -46,16 +46,17 @@ class AuthPage extends Component {
                     </Card>
                   </div>
                   <div className="login-form">
-                    <div style={{fontSize: '1.5em'}}>Username:</div>
+                    <div style={{fontSize: '1.2em', marginBottom: '.1em'}}>Username:</div>
                     <div>
                       <InputText
                         id="username"
                         value={this.state.username}
                         onChange={(e) => this.setState({username: e.target.value})}
+                        style={{marginBottom: '.6em'}}
                       />
                     </div>
                     <div style={{marginBottom: '1em'}}>
-                    <div style={{fontSize: '1.5em'}}>Password:</div>
+                    <div style={{fontSize: '1.2em', marginBottom: '.1em'}}>Password:</div>
                       <Password value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} feedback={false} />
                     </div>
                     <div>

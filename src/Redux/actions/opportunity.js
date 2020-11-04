@@ -87,8 +87,9 @@ export const createOpportunity = opportunity => async (dispatch, getState) => {
   dispatch(opportunityCreated(newOpportunity))
 }
 
-export const deleteOpportunity = opportunity => async dispatch => {
+export const deleteOpportunity = opportunity => async (dispatch, getState) => {
+  const state = getState()
   dispatch(deletingOpportunity())
-  const deletedOpportunity = await api.deleteOpportunity(opportunity)
-  dispatch(opportunityDeleted(deletedOpportunity))
+  await api.deleteOpportunity(opportunity, state.auth.token)
+  dispatch(opportunityDeleted(opportunity))
 }

@@ -40,7 +40,7 @@ class NewOpportunityDialog extends Component {
     let contactList = this.props.contacts
     contactList = contactList.map(contact => {
       return {
-        id: contact.id,
+        id: contact._id,
         label: contact.firstName + ' ' + contact.lastName + ' - ' + contact.organization
       }
     })
@@ -104,9 +104,9 @@ class NewOpportunityDialog extends Component {
                 <InputText id="source" onChange={(e) => {this.updateProperty('source', e.target.value)}} value={this.state.opportunity.source}/>
               </div>
 
-              <div className="p-col-4 "><label htmlFor="source">Source Contact</label></div>
+              <div className="p-col-4 "><label htmlFor="sourceContact">Source Contact</label></div>
               <div className="p-col-8">
-                <Dropdown id="sourceContact"  value={this.state.opportunity.sourceContact} options={this.state.contacts} optionLabel="label" optionValue="id" style={{width: '15em'}} scrollHeight='200px' onChange={(e) => {this.updateProperty('sourceContact', e.target.value)}} />
+                <Dropdown id="sourceContact" value={this.state.opportunity.sourceContact} options={this.state.contacts} optionLabel="label" optionValue="id" style={{width: '15em'}} scrollHeight='200px' onChange={(e) => {this.updateProperty('sourceContact', e.target.value)}} />
               </div>
 
               <div className="p-col-4 "><label htmlFor="employerURL">Employer Website</label></div>

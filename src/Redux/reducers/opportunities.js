@@ -59,9 +59,16 @@ const opportunities = (state = initialState, action) => {
     }
 
     case OPPORTUNITY_CREATED: {
+      const currState = {...state}
+      let updatedOpportunities = currState.opportunities
+      updatedOpportunities.push(action.newOpportunity)
+      updatedOpportunities.sort((a, b) => {
+        if (a.initialContactDate > b.initialContactDate) return -1
+        return 1
+      })
       return {
         ...state,
-        opportunities: [...state.opportunities, action.newOpportunity],
+        opportunities: updatedOpportunities,
         isCreating: false
       }
     }

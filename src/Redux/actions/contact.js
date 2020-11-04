@@ -77,7 +77,6 @@ export const saveContact = contact => async (dispatch, getState) => {
   const state = getState()
   dispatch(updateContact())
   const updatedContact = await api.saveContact(contact, state.auth.token)
-  console.log('updated Contact: ', updatedContact.data.updateContact)
   dispatch(contactUpdated(updatedContact.data.updateContact))
 }
 
@@ -88,8 +87,9 @@ export const createContact = contact => async (dispatch, getState) => {
   dispatch(contactCreated(newContact))
 }
 
-export const deleteContact = contact => async dispatch => {
+export const deleteContact = contact => async (dispatch, getState) => {
+  const state = getState()
   dispatch(deletingContact())
-  const deletedContact = await api.deleteContact(contact)
+  const deletedContact = await api.deleteContact(contact, state.auth.token)
   dispatch(contactDeleted(deletedContact))
 }

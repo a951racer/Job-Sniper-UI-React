@@ -73,20 +73,23 @@ export const fetchActivities = () => async (dispatch, getState) => {
   dispatch(activitiesReceived(activities))
 }
 
-export const saveActivity = activity => async dispatch => {
+export const saveActivity = activity => async (dispatch, getState) => {
+  const state = getState()
   dispatch(updateActivity())
-  const updatedActivity = await api.saveActivity(activity)
+  const updatedActivity = await api.saveActivity(activity, state.auth.token)
   dispatch(activityUpdated(updatedActivity))
 }
 
-export const createActivity = activity => async dispatch => {
+export const createActivity = activity => async (dispatch, getState) => {
+  const state = getState()
   dispatch(creatingActivity())
-  const newActivity = await api.createActivity(activity)
+  const newActivity = await api.createActivity(activity, state.auth.token)
   dispatch(activityCreated(newActivity))
 }
 
-export const deleteActivity = activity => async dispatch => {
+export const deleteActivity = activity => async (dispatch, getState) => {
+  const state = getState()
   dispatch(deletingActivity())
-  const deletedActivity = await api.deleteActivity(activity)
+  const deletedActivity = await api.deleteActivity(activity, state.auth.token)
   dispatch(activityDeleted(deletedActivity))
 }

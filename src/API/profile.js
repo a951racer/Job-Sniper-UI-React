@@ -2,49 +2,47 @@ import axios from 'axios'
 import runtimeEnv from '@mars/heroku-js-runtime-env'
 
 const env = runtimeEnv()
-//const apiRoot = 'http://localhost:5003/graphql'
-const apiRoot = env.REACT_APP_API
+const apiRoot = env.REACT_APP_API + '/user'
 
 export default class ProfileAPI {
 
   async getProfile(token) {
-    const query = {
-      query: `
-        query {
-          users {
-            id
-            firstName
-            lastName
-            email
-            password
-            isValidated
-            isAdmin
-          }
-        }
-      `
-    }
-
     const options = {
       headers: {
         'Authorization': 'Bearer ' + token
       }
     }
-    const res = await axios.post(apiRoot, query, options)
-    return res.data.data.profile
+    const res = await axios.get(apiRoot, options)
+    return res.data.data
   }
 
-  async saveProfile(profile) {
-    const res = await axios.put(apiRoot + `/${profile._id}`, profile)
+  async saveProfile(profile, token) {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    const res = await axios.put(apiRoot + `/${profile._id}`, profile, options)
     return res.data
   }
 
-  async createProfile(profile) {
-    const res = await axios.post(apiRoot, profile)
+  async createProfile(profile, token) {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    const res = await axios.post(apiRoot, profile, options)
     return res.data
   }
 
-  async deleteProfile(profile) {
-    const res = await axios.delete(apiRoot + `/${profile._id}`, profile)
+  async deleteProfile(profile, token) {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    const res = await axios.delete(apiRoot + `/${profile._id}`, profile, options)
     return res.data
   }
 }
